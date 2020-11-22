@@ -1,0 +1,8 @@
+.profile__add-button {
+  margin: 36px 16px 0;
+  width: 100%;
+  padding-bottom: 17%;
+  background-image: url('../../../images/profile__add-button.svg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
