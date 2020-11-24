@@ -1,9 +1,9 @@
 .profile__edit-button {
+  display: block;
   margin-left: 10px;
   width: 18px;
   height: 18px;
-  background-image: url('../../../images/profile__edit-button.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
+  text-align: center;
+  vertical-align: center;
+  object-fit: contain;
 }
