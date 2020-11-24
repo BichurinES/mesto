@@ -4,3 +4,21 @@
   border-radius: 50%;
   object-fit: cover;
 }
+
+@media screen and (min-width: 425px) {
+  .profile__avatar {
+    margin-right: 30px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .profile__avatar {
+    margin-left: 27px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .profile__avatar {
+    margin-left: 0;
+  }
+}
