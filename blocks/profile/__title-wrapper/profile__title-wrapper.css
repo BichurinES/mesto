@@ -1,0 +1,11 @@
+.profile__title-wrapper {
+  position: relative;
+}
+
+@media screen and (min-width: 425px) {
+  .profile__title-wrapper {
+    display: flex;
+    position: static;
+    align-items: baseline;
+  }
+}
