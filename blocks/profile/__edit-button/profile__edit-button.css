@@ -6,6 +6,8 @@
   height: 18px;
   background-image: url('../../../images/profile__edit-button.svg');
   background-size: contain;
+  cursor: pointer;
+  transition: opacity .5s ease;
 }
 
 @media screen and (min-width: 425px) {
@@ -21,4 +23,8 @@
     width: 24px;
     height: 24px;
   }
+}
+
+.profile__edit-button:hover {
+  opacity: .6;
 }
