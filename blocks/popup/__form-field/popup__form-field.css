@@ -1,0 +1,17 @@
+.popup__form-field {
+  display: block;
+  width: 100%;
+  padding-bottom: 8px;
+  margin-bottom: 30px;
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  font-family: inherit;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000;
+}
+
+.popup__form-field:last-child {
+  margin-bottom: 0;
+}
