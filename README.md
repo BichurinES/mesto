@@ -5,7 +5,7 @@
 
 Ориентирован на просмотр с любого устройства.
 
-Ссылка на проект: **https://bichurines.github.io/mesto/**
+Ссылка на проект: **https://bichurines.github.io/mesto/index.html**
 
 ## Используемые технологии:
 * __HTML5__
