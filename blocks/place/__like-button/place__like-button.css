@@ -4,9 +4,13 @@
   bottom: 29.87px;
   width: 20.76px;
   height: 18.13px;
+  padding: 0;
   background-image: url('../../../images/places__like-button.svg');
   background-size: contain;
   background-repeat: no-repeat;
+  outline: none;
+  background-color: transparent;
+  border: 0;
   cursor: pointer;
   transition: opacity .5s ease;
   transition: background-image .1s ease;

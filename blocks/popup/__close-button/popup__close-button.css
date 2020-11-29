@@ -4,9 +4,13 @@
   top: -51px;
   width: 38px;
   height: 38px;
+  padding: 0;
   background-image: url('../../../images/popup__close-button.svg');
   background-repeat: no-repeat;
   background-size: contain;
+  outline: none;
+  background-color: transparent;
+  border: 0;
   transition: opacity .5s ease;
 }
 

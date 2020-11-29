@@ -4,8 +4,12 @@
   right: calc(-10px - 18px - 1px);
   width: 18px;
   height: 18px;
+  padding: 0;
   background-image: url('../../../images/profile__edit-button.svg');
   background-size: contain;
+  outline: none;
+  background-color: transparent;
+  border: 0;
   cursor: pointer;
   transition: opacity .5s ease;
 }
