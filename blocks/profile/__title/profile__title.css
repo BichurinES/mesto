@@ -5,12 +5,12 @@
   font-size: 27px;
   font-weight: 500;
   line-height: 33px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 @media screen and (min-width: 425px) {

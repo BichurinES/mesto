@@ -1,7 +1,6 @@
 .place__like-button {
-  position: absolute;
-  right: 18.24px;
-  bottom: 29.87px;
+  margin-right: 18.24px;
+  margin-left: auto;
   width: 20.76px;
   height: 18.13px;
   padding: 0;
