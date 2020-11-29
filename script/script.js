@@ -1,6 +1,6 @@
 // Функционал кнопки редактирования профиля
 
-const editButton = document.querySelector('.profile__edit-button');
+let editButton = document.querySelector('.profile__edit-button');
 
 function editProfile() {
   let popup = document.querySelector('.popup'),
@@ -38,7 +38,7 @@ document.addEventListener('click', closeFormFromClick);
 
 // Функционал кнопки сохранения формы
 
-const form = document.querySelector('.popup__form');
+let form = document.querySelector('.popup__form');
 
 function changeInfo(event) {
   event.preventDefault();
