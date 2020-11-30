@@ -70,25 +70,25 @@
         </li>
       </ul>
     </section>
-
-    <section class="popup">
-      <div class="popup__container">
-        <form class="popup__form">
-          <h2 class="popup__title">Редактировать профиль</h2>
-          <fieldset class="popup__field-wrap">
-            <input type="text" class="popup__form-field popup__form-field_type_name" name="name" placeholder="Имя" required>
-            <input type="text" class="popup__form-field popup__form-field_type_about" name="about" placeholder="О себе" required>
-          </fieldset>
-          <input type="submit" class="popup__submit-button" value="Сохранить">
-        </form>
-        <button type="button" name="close-button" class="popup__close-button"></button>
-      </div>
-    </section>
   </main>
 
   <footer class="footer page__footer">
     <p class="footer__copyright">&copy; 2020. Егор Бичурин</p>
   </footer>
+
+  <section class="popup">
+    <div class="popup__container">
+      <form name="profile-info" class="popup__form">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <fieldset class="popup__field-wrap">
+          <input type="text" class="popup__form-field popup__form-field_type_name" name="name" placeholder="Имя" required>
+          <input type="text" class="popup__form-field popup__form-field_type_about" name="about" placeholder="О себе" required>
+        </fieldset>
+        <input type="submit" class="popup__submit-button" value="Сохранить">
+      </form>
+      <button type="button" name="close-button" class="popup__close-button"></button>
+    </div>
+  </section>
   <script src="script/script.js"></script>
 </body>
 </html>
