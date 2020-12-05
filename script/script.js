@@ -1,25 +1,37 @@
 // Объявляем глобальные переменные
 
-let popup = document.querySelector('.popup'),
-    name = document.querySelector('.profile__title'),
+let name = document.querySelector('.profile__title'),
     description = document.querySelector('.profile__subtitle'),
-    nameField = popup.querySelector('.popup__form-field_type_name'),
-    aboutField = popup.querySelector('.popup__form-field_type_about'),
+    closeButtons = Array.from(document.querySelectorAll('.popup__close-button')),
     editButton = document.querySelector('.profile__edit-button'),
-    closeButton = popup.querySelector('.popup__close-button'),
-    form = popup.querySelector('.popup__form');
+    popupEditProfile = document.querySelector('.popup_type_edit-profile'),
+    nameField = popupEditProfile.querySelector('.popup__form-field_type_name'),
+    aboutField = popupEditProfile.querySelector('.popup__form-field_type_about'),
+    editForm = popupEditProfile.querySelector('.popup__form'),
+    addButton = document.querySelector('.profile__add-button'),
+    popupAddPlace = document.querySelector('.popup_type_add-place'),
+    placeTitle = popupAddPlace.querySelector('.popup__form-field_type_title'),
+    placeImgLink = popupAddPlace.querySelector('.popup__form-field_type_link'),
+    addForm = popupAddPlace.querySelector('.popup__form');
 
-// Функционал кнопки редактирования профиля
+// Функционал кнопки редактирования профиля - открытие формы редактирования
 
 function editProfile() {
   nameField.value = name.textContent;
   aboutField.value = description.textContent;
-  popup.classList.add('popup_opened');
+  popupEditProfile.classList.add('popup_opened');
+}
+
+// Функционал кнопки добавления нового места - открытие формы добавления
+
+function showAddForm() {
+  popupAddPlace.classList.add('popup_opened');
 }
 
 // Функционал кнопки закрытия формы по кнопке или по щелчку вне зоны формы
 
-function closeForm() {
+function closeForm(evt) {
+  const popup = evt.target.closest('.popup');
   popup.classList.remove('popup_opened');
 }
 
@@ -34,5 +46,8 @@ function changeInfo(event) {
 
 // Привязываем функции к событиям
 editButton.addEventListener('click', editProfile);
-closeButton.addEventListener('click', closeForm);
-form.addEventListener('submit', changeInfo);
+editForm.addEventListener('submit', changeInfo);
+addButton.addEventListener('click', showAddForm);
+closeButtons.forEach((button) => {
+  button.addEventListener('click', closeForm);
+});
