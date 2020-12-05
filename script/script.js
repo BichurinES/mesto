@@ -35,13 +35,19 @@ function closeForm(evt) {
   popup.classList.remove('popup_opened');
 }
 
-// Функционал кнопки сохранения формы
+// Сохранение изменений данных профиля
 
-function changeInfo(event) {
-  event.preventDefault();
+function changeInfo(evt) {
+  evt.preventDefault();
   name.textContent = nameField.value;
   description.textContent = aboutField.value;
   closeForm();
+}
+
+// Функция добавления нового места
+
+function addNewPlace(evt) {
+
 }
 
 // Привязываем функции к событиям

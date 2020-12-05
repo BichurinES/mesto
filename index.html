@@ -32,6 +32,7 @@
             <h2 class="place__title">Карачаево-Черкесия</h2>
             <button type="button" name="like-button" class="place__like-button"></button>
           </div>
+          <button type="button" name="trash-button" class="place__trash-button"></button>
         </li>
         <li class="place">
           <img src="images/places__elbrus.jpeg" alt="Фотография горы Эльбрус на фоне заката" class="place__image">
@@ -51,7 +52,7 @@
           <img src="images/places__kamchatka.jpeg" alt="Фотография гор в облаках" class="place__image">
           <div class="place__footer">
             <h2 class="place__title">Камчатка</h2>
-            <button type="button" name="like-button" class="place__like-button"></button>
+            <button type="button" name="like-button" class="place__like-button"></button>g
           </div>
         </li>
         <li class="place">
@@ -102,6 +103,16 @@
       <button type="button" name="close-button" class="popup__close-button"></button>
     </div>
   </section>
+  <template id="placeTemplate">
+    <li class="place">
+      <img src="" alt="" class="place__image">
+      <div class="place__footer">
+        <h2 class="place__title"></h2>
+        <button type="button" name="like-button" class="place__like-button"></button>
+      </div>
+      <button type="button" name="trash-button" class="place__trash-button"></button>
+    </li>
+  </template>
   <script src="script/script.js"></script>
 </body>
 </html>
