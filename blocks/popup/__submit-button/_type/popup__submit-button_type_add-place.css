@@ -1,0 +1,13 @@
+.popup__submit-button_type_add-place {
+  min-width: 200px;
+  width: 62.5vw;
+  height: 40px;
+  margin-top: 35px;
+}
+
+@media screen and (min-width: 425px) {
+  .popup__submit-button_type_add-place {
+    margin-top: 48px;
+    height: 50px;
+  }
+}

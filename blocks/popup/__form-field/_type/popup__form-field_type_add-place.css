@@ -1,0 +1,13 @@
+.popup__form-field_type_add-place {
+  margin-bottom: 20px;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+@media screen and (min-width: 425px) {
+  .popup__form-field_type_add-place {
+    margin-bottom: 30px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

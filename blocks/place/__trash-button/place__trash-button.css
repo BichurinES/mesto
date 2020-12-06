@@ -1,6 +1,6 @@
 .place__trash-button {
   position: absolute;
-  z-index: 10;
+  z-index: 0;
   top: 18px;
   right: 15px;
   width: 18px;

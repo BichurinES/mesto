@@ -76,7 +76,7 @@
   <footer class="footer page__footer">
     <p class="footer__copyright">&copy; 2020. Егор Бичурин</p>
   </footer>
-
+  <!-- Popups -->
   <section class="popup popup_type_edit-profile">
     <div class="popup__container">
       <form name="edit-profile-form" class="popup__form">
@@ -91,18 +91,29 @@
     </div>
   </section>
   <section class="popup popup_type_add-place">
-    <div class="popup__container">
+    <div class="popup__container popup__container_type_add-place">
       <form name="add-form" class="popup__form">
-        <h2 class="popup__title">Новое место</h2>
+        <h2 class="popup__title popup__title_type_add-place">Новое место</h2>
         <fieldset class="popup__field-wrap">
-          <input type="text" class="popup__form-field popup__form-field_type_title" name="title" placeholder="Название" required>
-          <input type="text" class="popup__form-field popup__form-field_type_link" name="link" placeholder="Ссылка на картинку" required>
+          <input type="text" class="popup__form-field popup__form-field_type_add-place popup__form-field_type_title" name="title" placeholder="Название" required>
+          <input type="text" class="popup__form-field popup__form-field_type_add-place popup__form-field_type_link" name="link" placeholder="Ссылка на картинку" required>
         </fieldset>
-        <input type="submit" class="popup__submit-button" value="Создать">
+        <input type="submit" class="popup__submit-button popup__submit-button_type_add-place" value="Создать">
       </form>
-      <button type="button" name="close-button" class="popup__close-button"></button>
+      <button type="button" name="close-button" class="popup__close-button popup__close-button_type_add-place"></button>
     </div>
   </section>
+  <section class="popup popup_type_fullscreen-image532">
+    <div class="popup__container popup__container_type_fullscreen-image">
+      <figure class="popup__figure">
+        <img src="" alt="" class="popup__image">
+        <figcaption class="popup__image-caption"></figcaption>
+      </figure>
+      <button type="button" name="close-button" class="popup__close-button popup__close-button_type_fullscreen-image"></button>
+    </div>
+  </section>
+
+  <!-- Шаблон для новых мест -->
   <template id="placeTemplate">
     <li class="place">
       <img src="" alt="" class="place__image">
