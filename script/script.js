@@ -1,5 +1,4 @@
 // Объявляем глобальные переменные
-
 const name = document.querySelector('.profile__title'),
       description = document.querySelector('.profile__subtitle'),
       closeButtons = Array.from(document.querySelectorAll('.popup__close-button')),
@@ -48,7 +47,6 @@ const initialCards = [
 ];
 
 // Функционал кнопки редактирования профиля - открытие формы редактирования
-
 function editProfile() {
   nameField.value = name.textContent;
   aboutField.value = description.textContent;
