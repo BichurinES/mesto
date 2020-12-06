@@ -124,7 +124,6 @@ function addNewPlace(title, imgLink) {
 }
 
 // Функционал формы по добавлению нового места
-
 function addFormFeat(evt) {
   evt.preventDefault();
   addNewPlace(placeTitle.value, placeImgLink.value);
