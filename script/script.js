@@ -46,28 +46,15 @@ const initialCards = [
   }
 ];
 
-// Функционал кнопки редактирования профиля - открытие формы редактирования
-function editProfile() {
-  nameField.value = name.textContent;
-  aboutField.value = description.textContent;
-  popupEditProfile.classList.add('popup_opened');
+// Открытие popup
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
 }
 
-// Функционал кнопки добавления нового места - открытие формы добавления
-
-function showAddForm() {
-  popupAddPlace.classList.add('popup_opened');
-}
-
-// Функционал кнопки закрытия формы по кнопке или по щелчку вне зоны формы
+// Функционал кнопки закрытия popup по крестику
 
 function closeForm(popup) {
   popup.classList.remove('popup_opened');
-}
-
-function closeButtonFeat(evt) {
-  const popup = evt.target.closest('.popup');
-  closeForm(popup);
 }
 
 // Сохранение изменений данных профиля
@@ -101,9 +88,8 @@ function zoomImg(evt) {
   popupFullscreen.classList.add('popup_opened');
 }
 
-// Функция добавления нового места
-
-function addNewPlace(title, imgLink) {
+// Функция создания новой карточки
+function createCard(title, imgLink) {
   const newPlace = placeTemplate.cloneNode(true),
         imgNode = newPlace.querySelector('.place__image'),
         titleNode = newPlace.querySelector('.place__title'),
@@ -118,25 +104,34 @@ function addNewPlace(title, imgLink) {
   trashButton.addEventListener('click', deletePlace);
   imgNode.addEventListener('click', zoomImg);
 
-  placesList.prepend(newPlace);
+  return newPlace;
+}
+
+// Добавление карточки в контейнер
+function addCard(container, cardElement) {
+  container.prepend(cardElement);
 }
 
 // Функционал формы по добавлению нового места
-function addFormFeat(evt) {
+function addNewPlace(evt) {
   evt.preventDefault();
-  addNewPlace(placeTitle.value, placeImgLink.value);
+  addCard(placesList, createCard(placeTitle.value, placeImgLink.value));
   closeForm(popupAddPlace);
 }
 
 // Привязываем функции к событиям
-editButton.addEventListener('click', editProfile);
+editButton.addEventListener('click', () => {
+  nameField.value = name.textContent;
+  aboutField.value = description.textContent;
+  openPopup(popupEditProfile);
+});
+addButton.addEventListener('click', () => openPopup(popupAddPlace));
 editForm.addEventListener('submit', changeInfo);
-addForm.addEventListener('submit', addFormFeat);
-addButton.addEventListener('click', showAddForm);
-closeButtons.forEach((button) => {
-  button.addEventListener('click', closeButtonFeat);
-});
+addForm.addEventListener('submit', addNewPlace);
+closeButtons.forEach(button => button.addEventListener('click', (evt) => {
+  const popup = evt.target.closest('.popup');
+  closeForm(popup);
+}));
 
-initialCards.forEach((place) => {
-  addNewPlace(place.name, place.link);
-});
+// Заполняем блок places заготовленными карточками
+initialCards.forEach(place => addCard(placesList, createCard(place.name, place.link)));
