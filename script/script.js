@@ -14,38 +14,11 @@ const name = document.querySelector('.profile__title'),
       popupAddPlace = document.querySelector('.popup_type_add-place'),
       placeTitle = popupAddPlace.querySelector('.popup__form-field_type_title'),
       placeImgLink = popupAddPlace.querySelector('.popup__form-field_type_link'),
+      addSubmitButton = popupAddPlace.querySelector('.popup__submit-button'),
       addForm = document.forms['add-form'],
       popupFullscreen = document.querySelector('.popup_type_fullscreen-image'),
       popupImg = popupFullscreen.querySelector('.popup__image'),
       popupImgCaption = popupFullscreen.querySelector('.popup__image-caption');
-
-// Массив заготовленных мест
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
 
 // Открытие popup
 function openPopup(popup) {
@@ -54,7 +27,7 @@ function openPopup(popup) {
 }
 
 // Функционал закрытия popup
-function closeForm(popup) {
+function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closeFromEsc);
 }
@@ -62,7 +35,7 @@ function closeForm(popup) {
 // Закрытие popup по щелчку вне контейнера
 function clickOutsideContainer(evt) {
   if (evt.target.classList.contains('popup')) {
-    closeForm(evt.target);
+    closePopup(evt.target);
   }
 }
 
@@ -71,17 +44,16 @@ function closeFromEsc(evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
     const currentPopup = document.querySelector('.popup_opened');
-    closeForm(currentPopup);
+    closePopup(currentPopup);
   }
 }
 
 // Сохранение изменений данных профиля
-
 function changeInfo(evt) {
   evt.preventDefault();
   name.textContent = nameField.value;
   description.textContent = aboutField.value;
-  closeForm(popupEditProfile);
+  closePopup(popupEditProfile);
 }
 
 // Проставление/снятие лайка
@@ -103,7 +75,7 @@ function zoomImg(evt) {
   popupImg.src = currentImg.src;
   popupImg.alt = currentImg.alt;
   popupImgCaption.textContent = imgTitle.textContent;
-  popupFullscreen.classList.add('popup_opened');
+  openPopup(popupFullscreen);
 }
 
 // Функция создания новой карточки
@@ -134,7 +106,7 @@ function addCard(container, cardElement) {
 function addNewPlace(evt) {
   evt.preventDefault();
   addCard(placesList, createCard(placeTitle.value, placeImgLink.value));
-  closeForm(popupAddPlace);
+  closePopup(popupAddPlace);
 }
 
 // Привязываем функции к событиям
@@ -147,12 +119,31 @@ editButton.addEventListener('click', () => {
 
   openPopup(popupEditProfile);
 });
-addButton.addEventListener('click', () => openPopup(popupAddPlace));
+addButton.addEventListener('click', () => {
+  const inputsList = Array.from(addForm.querySelectorAll('.popup__form-field')),
+        erorrsList = Array.from(addForm.querySelectorAll('.popup__error'));
+
+  inputsList.forEach((input) => {
+    input.value = '';
+    input.classList.remove('popup__form-field_type_error');
+  });
+
+  erorrsList.forEach((error) => {
+    error.textContent = '';
+    error.classList.remove('popup__error_visible');
+  });
+
+  addSubmitButton.disable = true;
+  addSubmitButton.classList.add('popup__submit-button_type_disabled');
+
+  openPopup(popupAddPlace);
+});
+
 editForm.addEventListener('submit', changeInfo);
 addForm.addEventListener('submit', addNewPlace);
 closeButtons.forEach(button => button.addEventListener('click', (evt) => {
   const popup = evt.target.closest('.popup');
-  closeForm(popup);
+  closePopup(popup);
 }));
 popups.forEach((popup) => popup.addEventListener('mousedown', clickOutsideContainer));
 
