@@ -46,6 +46,7 @@
 @import url(../blocks/popup/__error/_visible/popup__error_visible.css);
 @import url(../blocks/popup/__submit-button/popup__submit-button.css);
 @import url(../blocks/popup/__submit-button/_type/popup__submit-button_type_add-place.css);
+@import url(../blocks/popup/__submit-button/_type/popup__submit-button_type_disabled.css);
 @import url(../blocks/popup/__close-button/popup__close-button.css);
 @import url(../blocks/popup/__close-button/_type/popup__close-button_type_fullscreen-image.css);
 @import url(../blocks/popup/__close-button/_type/popup__close-button_type_add-place.css);
