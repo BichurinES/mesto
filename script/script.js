@@ -2,6 +2,7 @@
 const name = document.querySelector('.profile__title'),
       description = document.querySelector('.profile__subtitle'),
       closeButtons = Array.from(document.querySelectorAll('.popup__close-button')),
+      popups = Array.from(document.querySelectorAll('.popup')),
       placeTemplate = document.querySelector('#place-template').content,
       placesList = document.querySelector('.places__list'),
       editButton = document.querySelector('.profile__edit-button'),
@@ -49,12 +50,28 @@ const initialCards = [
 // Открытие popup
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closeFromEsc);
 }
 
-// Функционал кнопки закрытия popup
-
+// Функционал закрытия popup
 function closeForm(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeFromEsc);
+}
+
+// Закрытие popup по щелчку вне контейнера
+function clickOutsideContainer(evt) {
+  if (evt.target.classList.contains('popup')) {
+    closeForm(evt.target);
+  }
+}
+
+// Закрытие popup по Esc
+function closeFromEsc(evt) {
+  if (evt.key === 'Escape') {
+    const currentPopup = document.querySelector('.popup_opened');
+    closeForm(currentPopup);
+  }
 }
 
 // Сохранение изменений данных профиля
@@ -136,6 +153,7 @@ closeButtons.forEach(button => button.addEventListener('click', (evt) => {
   const popup = evt.target.closest('.popup');
   closeForm(popup);
 }));
+popups.forEach((popup) => popup.addEventListener('mousedown', clickOutsideContainer));
 
 // Заполняем блок places заготовленными карточками
 initialCards.forEach(place => addCard(placesList, createCard(place.name, place.link)));
