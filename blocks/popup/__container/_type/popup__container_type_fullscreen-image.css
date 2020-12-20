@@ -1,19 +1,13 @@
 .popup__container_type_fullscreen-image {
   display: flex;
   justify-content: center;
-  max-width: 100%;
+  max-width: 75vw;
   min-width: 320px;
   width: auto;
   box-sizing: border-box;
+  padding: 0;
   margin: 0;
-  padding: 40px 40px 22px 40px;
   background-color: transparent;
   box-shadow: none;
   border-radius: 0;
-}
-
-@media screen and (min-width: 768px) {
-  .popup__container_type_fullscreen-image {
-    padding: 90px 90px 68px 90px;
-  }
 }

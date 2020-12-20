@@ -41,8 +41,10 @@
         <form name="edit-profile-form" class="popup__form popup__form_type_edit-profile">
           <h2 class="popup__title">Редактировать профиль</h2>
           <fieldset class="popup__field-wrap">
-            <input type="text" class="popup__form-field popup__form-field_type_name" name="name" placeholder="Имя" required>
-            <input type="text" class="popup__form-field popup__form-field_type_about" name="about" placeholder="О себе" required>
+            <input type="text" class="popup__form-field popup__form-field_type_name" name="name"
+            placeholder="Имя" minlength="2" maxlength="40" required>
+            <input type="text" class="popup__form-field popup__form-field_type_about" name="about"
+            placeholder="О себе" minlength="2" maxlength="200" required>
           </fieldset>
           <input type="submit" class="popup__submit-button" value="Сохранить">
         </form>
@@ -54,8 +56,10 @@
         <form name="add-form" class="popup__form popup__form_type_add-place">
           <h2 class="popup__title popup__title_type_add-place">Новое место</h2>
           <fieldset class="popup__field-wrap">
-            <input type="text" class="popup__form-field popup__form-field_type_add-place popup__form-field_type_title" name="title" placeholder="Название" required>
-            <input type="url" class="popup__form-field popup__form-field_type_add-place popup__form-field_type_link" name="link" placeholder="Ссылка на картинку" required>
+            <input type="text" class="popup__form-field popup__form-field_type_add-place popup__form-field_type_title"
+            name="title" placeholder="Название" minlength="1" maxlength="30" required>
+            <input type="url" class="popup__form-field popup__form-field_type_add-place popup__form-field_type_link"
+            name="link" placeholder="Ссылка на картинку" required>
           </fieldset>
           <input type="submit" class="popup__submit-button popup__submit-button_type_add-place" value="Создать">
         </form>

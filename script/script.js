@@ -8,12 +8,12 @@ const name = document.querySelector('.profile__title'),
       popupEditProfile = document.querySelector('.popup_type_edit-profile'),
       nameField = popupEditProfile.querySelector('.popup__form-field_type_name'),
       aboutField = popupEditProfile.querySelector('.popup__form-field_type_about'),
-      editForm = popupEditProfile.querySelector('.popup__form_type_edit-profile'),
+      editForm = document.forms['edit-profile-form'],
       addButton = document.querySelector('.profile__add-button'),
       popupAddPlace = document.querySelector('.popup_type_add-place'),
       placeTitle = popupAddPlace.querySelector('.popup__form-field_type_title'),
       placeImgLink = popupAddPlace.querySelector('.popup__form-field_type_link'),
-      addForm = popupAddPlace.querySelector('.popup__form_type_add-place'),
+      addForm = document.forms['add-form'],
       popupFullscreen = document.querySelector('.popup_type_fullscreen-image'),
       popupImg = popupFullscreen.querySelector('.popup__image'),
       popupImgCaption = popupFullscreen.querySelector('.popup__image-caption');
@@ -51,7 +51,7 @@ function openPopup(popup) {
   popup.classList.add('popup_opened');
 }
 
-// Функционал кнопки закрытия popup по крестику
+// Функционал кнопки закрытия popup
 
 function closeForm(popup) {
   popup.classList.remove('popup_opened');
