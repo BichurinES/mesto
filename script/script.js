@@ -69,6 +69,7 @@ function clickOutsideContainer(evt) {
 // Закрытие popup по Esc
 function closeFromEsc(evt) {
   if (evt.key === 'Escape') {
+    evt.preventDefault();
     const currentPopup = document.querySelector('.popup_opened');
     closeForm(currentPopup);
   }
