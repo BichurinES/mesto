@@ -123,6 +123,10 @@ function addNewPlace(evt) {
 editButton.addEventListener('click', () => {
   nameField.value = name.textContent;
   aboutField.value = description.textContent;
+
+  const inputEvent = new Event("input");  // Программно генерирую событие input, чтобы убрать ошибку,
+  nameField.dispatchEvent(inputEvent);    // при которой поля editForm заполнены по-умолчанию, а кнопка не активна
+
   openPopup(popupEditProfile);
 });
 addButton.addEventListener('click', () => openPopup(popupAddPlace));
