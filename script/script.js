@@ -1,4 +1,6 @@
-import {Card} from './card.js';
+import {Card} from './Card.js';
+import {FormValidator} from './FormValidator.js';
+import {initialCards} from './data.js';
 
 // Объявляем глобальные переменные
 const name = document.querySelector('.profile__title'),
@@ -18,7 +20,15 @@ const name = document.querySelector('.profile__title'),
       addSubmitButton = popupAddPlace.querySelector('.popup__submit-button'),
       addForm = document.forms['add-form'],
       addFormInputsList = Array.from(addForm.querySelectorAll('.popup__form-field')),
-      addFormErorrsList = Array.from(addForm.querySelectorAll('.popup__error'));
+      addFormErorrsList = Array.from(addForm.querySelectorAll('.popup__error')),
+      validateSettings = {
+        formSelector: '.popup__form',
+        inputSelector: '.popup__form-field',
+        submitButtonSelector: '.popup__submit-button',
+        inactiveButtonClass: 'popup__submit-button_type_disabled',
+        inputErrorClass: 'popup__form-field_type_error',
+        errorClass: 'popup__error_visible'
+      };
 
 // Открытие popup
 function openPopup(popup) {
@@ -92,6 +102,15 @@ function cleanAddForm() {
   addSubmitButton.classList.add('popup__submit-button_type_disabled');
 }
 
+// Функция активации валидации всех форм
+function enableAllFormValidation(settings, formSelector) {
+  const forms = Array.from(document.querySelectorAll(formSelector));
+  forms.forEach((form) => {
+    const formValidator = new FormValidator(settings, form);
+    formValidator.enableValidation();
+  });
+}
+
 // Привязываем функции к событиям
 editForm.addEventListener('submit', changeInfo);
 addForm.addEventListener('submit', addNewPlace);
@@ -123,3 +142,6 @@ initialCards.forEach((place) => {
   const newCard = new Card(place, '#place-template');
   addCard(placesList, newCard.createCard());
 });
+
+// Подключаем валидацию к полям
+enableAllFormValidation(validateSettings, validateSettings.formSelector);
