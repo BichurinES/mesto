@@ -1,11 +1,11 @@
-export class FormValidator {
+export default class FormValidator {
   constructor(settings, currentFormElem) {
-    this.inputSelector = settings.inputSelector;
-    this.submitButtonSelector = settings.submitButtonSelector;
-    this.inactiveButtonClass = settings.inactiveButtonClass;
-    this.inputErrorClass = settings.inputErrorClass;
-    this.errorClass = settings.errorClass;
-    this.form = currentFormElem;
+    this._inputSelector = settings.inputSelector;
+    this._submitButtonSelector = settings.submitButtonSelector;
+    this._inactiveButtonClass = settings.inactiveButtonClass;
+    this._inputErrorClass = settings.inputErrorClass;
+    this._errorClass = settings.errorClass;
+    this._form = currentFormElem;
   }
 
   //Проверка валидности конкретного поля
@@ -54,15 +54,15 @@ export class FormValidator {
   }
 
   enableValidation() {
-    const inputList = Array.from(this.form.querySelectorAll(this.inputSelector)),
-          btn = this.form.querySelector(this.submitButtonSelector);
+    const inputList = Array.from(this._form.querySelectorAll(this._inputSelector)),
+          btn = this._form.querySelector(this._submitButtonSelector);
 
-    this._toggleBtn(inputList, btn, this.inactiveButtonClass);
+    this._toggleBtn(inputList, btn, this._inactiveButtonClass);
 
     inputList.forEach((input) => {
       input.addEventListener('input', () => {
-        this._toggleError(this.form, input, this.inputErrorClass, this.errorClass);
-        this._toggleBtn(inputList, btn, this.inactiveButtonClass);
+        this._toggleError(this._form, input, this._inputErrorClass, this._errorClass);
+        this._toggleBtn(inputList, btn, this._inactiveButtonClass);
       });
     });
   }
