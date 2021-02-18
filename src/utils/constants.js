@@ -53,3 +53,5 @@ export const validateSettings = {
 export const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 export const nameField = popupEditProfile.querySelector('.popup__form-field_type_name');
 export const aboutField = popupEditProfile.querySelector('.popup__form-field_type_about');
+export const addFormSelector = '.popup__form_type_add-place';
+export const editFormSelector = '.popup__form_type_edit-profile';

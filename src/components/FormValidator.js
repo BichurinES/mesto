@@ -1,11 +1,11 @@
 export default class FormValidator {
-  constructor(settings, currentFormElem) {
+  constructor(settings, formSelector) {
     this._inputSelector = settings.inputSelector;
     this._submitButtonSelector = settings.submitButtonSelector;
     this._inactiveButtonClass = settings.inactiveButtonClass;
     this._inputErrorClass = settings.inputErrorClass;
     this._errorClass = settings.errorClass;
-    this._form = currentFormElem;
+    this._form = document.querySelector(formSelector);
   }
 
   //Проверка валидности конкретного поля

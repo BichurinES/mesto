@@ -15,6 +15,8 @@ import {
   popupSelectors,
   openButtonSelectors,
   validateSettings,
+  addFormSelector,
+  editFormSelector
 } from '../utils/constants.js';
 
 // Предзаполнение полей формы изменения профиля
@@ -33,11 +35,11 @@ function changeInfo(evt) {
 }
 
 // Отрисовка и добавление карточки
-function addPlace(item) {
-  const newCard = new Card({link: item.link, name: item.name}, function() {
-    popupWithImage.open(item.link, item.name);
+function addPlace(item, isArray) {
+  const newCard = new Card({link: item.link, name: item.name}, function(link, name) {
+    popupWithImage.open(link, name);
   }, cardSelector);
-  places.addItem(newCard.createCard());
+  places.addItem(newCard.createCard(), isArray);
 }
 
 // Отрисовка и добавления новой карточки из формы
@@ -48,17 +50,8 @@ function addPlaceFromForm(evt) {
     name: popupWithAddForm.getValueFromName('title')
   };
 
-  addPlace(item);
+  addPlace(item, false);
   popupWithAddForm.close();
-}
-
-// Функция активации валидации всех форм
-function enableAllFormValidation(settings, formSelector) {
-  const forms = Array.from(document.querySelectorAll(formSelector));
-  forms.forEach((form) => {
-    const formValidator = new FormValidator(settings, form);
-    formValidator.enableValidation();
-  });
 }
 
 // Создание экземпляров классов
@@ -66,7 +59,9 @@ const userInfo = new UserInfo(userInfoSelectors),
       popupWithImage = new PopupWithImage(popupSelectors.image),
       popupWithEditForm = new PopupWithForm(popupSelectors.editForm, openButtonSelectors.editForm, changeInfo, prefillProfileForm),
       popupWithAddForm = new PopupWithForm(popupSelectors.addForm, openButtonSelectors.addForm, addPlaceFromForm),
-      places = new Section({items: initialCards, render: addPlace}, placesSelector);
+      places = new Section({items: initialCards, render: addPlace}, placesSelector),
+      addFormValidator = new FormValidator(validateSettings, addFormSelector),
+      editFormValidator = new FormValidator(validateSettings, editFormSelector);
 
 // Активация фукнционала попов
 popupWithImage.setEventListener();
@@ -77,4 +72,5 @@ popupWithAddForm.setEventListener();
 places.renderItems();
 
 // Активация валидации форм
-enableAllFormValidation(validateSettings, validateSettings.formSelector);
+addFormValidator.enableValidation();
+editFormValidator.enableValidation();
