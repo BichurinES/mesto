@@ -1,13 +1,15 @@
 import Popup from './Popup.js';
 
 export default class PopupWithForm extends Popup {
-  constructor(popupSelector, openButtonSelector, handleSubmitForm, handleOpenForm) {
+  constructor({popupSelector, openButtonSelector, loadingText, handleSubmitForm, handleOpenForm}) {
     super(popupSelector);
     this._handleSubmitForm = handleSubmitForm;
     this._handleOpenForm = handleOpenForm;
-    this._openButton = document.querySelector(openButtonSelector);
+    this._openButton = openButtonSelector ? document.querySelector(openButtonSelector) : null;
     this._form = this._popupElement.querySelector('.popup__form');
     this._submitButton = this._form.querySelector('.popup__submit-button');
+    this._loadingText = loadingText;
+    this._defaultTextBtn = this._submitButton.value;
   }
 
   _getInputValues() {
@@ -18,6 +20,14 @@ export default class PopupWithForm extends Popup {
         value: input.value
       }
     });
+  }
+
+  showLoadingText() {
+    this._submitButton.value = this._loadingText;
+  }
+
+  hideLoadingText() {
+    this._submitButton.value = this._defaultTextBtn;
   }
 
   getValueFromName(inputName) {
@@ -31,7 +41,9 @@ export default class PopupWithForm extends Popup {
   setEventListener() {
     super.setEventListener();
     this._form.addEventListener('submit', this._handleSubmitForm);
-    this._openButton.addEventListener('click', this.open.bind(this));
+    if (this._openButton) {
+      this._openButton.addEventListener('click', this.open.bind(this));
+    }
   }
 
   open() {
@@ -43,8 +55,13 @@ export default class PopupWithForm extends Popup {
 
   close() {
     super.close();
-    this._form.reset();
-    this._submitButton.classList.add('popup__submit-button_type_disabled');
-    this._submitButton.disabled = true;
+    if (this._form.querySelector('.popup__form-field')) {
+      this._form.reset();
+      this._submitButton.classList.add('popup__submit-button_type_disabled');
+      this._submitButton.disabled = true;
+    }
+    if (this.currentCard) {
+      this.currentCard = null;
+    }
   }
 }

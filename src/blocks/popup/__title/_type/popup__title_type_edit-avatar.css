@@ -1,0 +1,9 @@
+.popup__title_type_edit-avatar {
+  margin-bottom: 30px;
+}
+
+@media screen and (min-width: 425px) {
+  .popup__title_type_edit-avatar {
+    margin-bottom: 48px;
+  }
+}

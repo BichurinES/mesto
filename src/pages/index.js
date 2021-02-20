@@ -5,9 +5,9 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
+import Api from '../components/Api.js';
 import {
   cardSelector,
-  initialCards,
   nameField,
   aboutField,
   placesSelector,
@@ -15,8 +15,11 @@ import {
   popupSelectors,
   openButtonSelectors,
   validateSettings,
+  apiOptions,
   addFormSelector,
-  editFormSelector
+  editFormSelector,
+  editAvatarSelector,
+  loadingText
 } from '../utils/constants.js';
 
 // Предзаполнение полей формы изменения профиля
@@ -29,48 +32,127 @@ function prefillProfileForm() {
 // Сохранение изменений данных профиля
 function changeInfo(evt) {
   evt.preventDefault();
-  userInfo.setUserInfo(popupWithEditForm.getValueFromName('name'), popupWithEditForm.getValueFromName('about'));
+  popupWithEditForm.showLoadingText();
+  const newData = {
+    name: getSubmitButton().getValueFromName('name'),
+    about: popupWithEditForm.getValueFromName('about')
+  };
+
+  api.chahgeProfile(newData, userInfo.setUserInfo.bind(userInfo));
+  popupWithEditForm.hideLoadingText();
   popupWithEditForm.close();
   prefillProfileForm();
 }
 
+// Сохранение изменения аватара
+function changeAvatar(evt) {
+  evt.preventDefault();
+  popupWithEditAvatar.showLoadingText();
+  api.changeAvatar({avatar: popupWithEditAvatar.getValueFromName('avatar')},
+                    userInfo.setUserInfo.bind(userInfo));
+  popupWithEditAvatar.hideLoadingText();
+  popupWithEditAvatar.close();
+}
+
+// Обработчик клиека по карте
+function handleCardClick(link, name) {
+  popupWithImage.open(link, name);
+}
+
+// Обратботчик клика по корзине на карточке
+function handleTrashClick() {
+  popupWithConfirmDelete.currentCard = this;
+  popupWithConfirmDelete.open();
+}
+
+// Обратботчик лайка карточки
+function handleLikeBtn() {
+  if (this.isMyLike()) {
+    api.dislikeCard(this.getCardId(), this.refreshLikes.bind(this));
+  } else {
+    api.likeCard(this.getCardId(), this.refreshLikes.bind(this));
+  }
+}
+
 // Отрисовка и добавление карточки
 function addPlace(item, isArray) {
-  const newCard = new Card({link: item.link, name: item.name}, function(link, name) {
-    popupWithImage.open(link, name);
-  }, cardSelector);
+  const newCard = new Card(item, {
+    myUserId: userInfo.getUserInfo().userId,
+    cardSelector: cardSelector,
+    handleCardClick: handleCardClick,
+    handleTrashClick: handleTrashClick,
+    handleLikeBtn: handleLikeBtn
+  });
+
   places.addItem(newCard.createCard(), isArray);
 }
 
 // Отрисовка и добавления новой карточки из формы
 function addPlaceFromForm(evt) {
   evt.preventDefault();
+  popupWithAddForm.showLoadingText();
   const item = {
     link: popupWithAddForm.getValueFromName('link'),
     name: popupWithAddForm.getValueFromName('title')
   };
 
-  addPlace(item, false);
+  api.addNewCard(item, addPlace);
+  popupWithAddForm.hideLoadingText();
   popupWithAddForm.close();
+}
+
+// Удаление карточки
+function deleteCard(evt) {
+  evt.preventDefault();
+  api.deleteCard(popupWithConfirmDelete.currentCard.getCardId())
+  popupWithConfirmDelete.currentCard.getCardElement().remove();
+  popupWithConfirmDelete.close();
 }
 
 // Создание экземпляров классов
 const userInfo = new UserInfo(userInfoSelectors),
+      places = new Section(addPlace, placesSelector),
       popupWithImage = new PopupWithImage(popupSelectors.image),
-      popupWithEditForm = new PopupWithForm(popupSelectors.editForm, openButtonSelectors.editForm, changeInfo, prefillProfileForm),
-      popupWithAddForm = new PopupWithForm(popupSelectors.addForm, openButtonSelectors.addForm, addPlaceFromForm),
-      places = new Section({items: initialCards, render: addPlace}, placesSelector),
+      popupWithEditForm = new PopupWithForm({
+        popupSelector: popupSelectors.editForm,
+        openButtonSelector: openButtonSelectors.editForm,
+        loadingText: loadingText,
+        handleSubmitForm: changeInfo,
+        handleOpenForm: prefillProfileForm
+      }),
+      popupWithEditAvatar = new PopupWithForm({
+        popupSelector: popupSelectors.editAvatar,
+        openButtonSelector: openButtonSelectors.editAvatar,
+        loadingText: loadingText,
+        handleSubmitForm: changeAvatar}),
+      popupWithAddForm = new PopupWithForm({
+        popupSelector: popupSelectors.addForm,
+        openButtonSelector: openButtonSelectors.addForm,
+        loadingText: loadingText,
+        handleSubmitForm: addPlaceFromForm}),
+      popupWithConfirmDelete = new PopupWithForm({
+        popupSelector: popupSelectors.confirmDelete,
+        handleSubmitForm: deleteCard
+      }),
       addFormValidator = new FormValidator(validateSettings, addFormSelector),
-      editFormValidator = new FormValidator(validateSettings, editFormSelector);
+      editFormValidator = new FormValidator(validateSettings, editFormSelector),
+      editAvatarValidator = new FormValidator(validateSettings, editAvatarSelector),
+      api = new Api(apiOptions);
 
-// Активация фукнционала попов
+// Активация фукнционала попапов
 popupWithImage.setEventListener();
 popupWithEditForm.setEventListener();
 popupWithAddForm.setEventListener();
-
-// Первичная отрисовка карточек
-places.renderItems();
+popupWithConfirmDelete.setEventListener();
+popupWithEditAvatar.setEventListener();
 
 // Активация валидации форм
 addFormValidator.enableValidation();
 editFormValidator.enableValidation();
+editAvatarValidator.enableValidation();
+
+// Обновление информации о профиле
+api.getProfile(userInfo.setUserInfo.bind(userInfo));
+
+// Загрузка карточек пользователей
+api.getInitialCards(places.renderItems.bind(places));

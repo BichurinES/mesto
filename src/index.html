@@ -12,7 +12,7 @@
 
   <main>
     <section class="profile page__profile">
-      <img src="<%=require('./images/profile__avatar.jpeg')%>" alt="Аватар пользователя" class="profile__avatar">
+      <button class="profile__avatar"></button>
       <div class="profile__info">
         <div class="profile__title-wrapper">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -52,6 +52,20 @@
         <button type="button" name="close-button" class="popup__close-button"></button>
       </div>
     </div>
+    <div class="popup popup_type_edit-avatar">
+      <div class="popup__container">
+        <form name="edit-avatar" class="popup__form popup__form_type_edit-avatar">
+          <h2 class="popup__title popup__title_type_edit-avatar">Обновить аватар</h2>
+          <fieldset class="popup__field-wrap">
+            <input type="url" id="avatar-field" class="popup__form-field"
+            name="avatar" placeholder="Ссылка на картинку" required novalidate>
+            <span class="avatar-field-error popup__error"></span>
+          </fieldset>
+          <input type="submit" class="popup__submit-button" value="Сохранить">
+        </form>
+        <button type="button" name="close-button" class="popup__close-button"></button>
+      </div>
+    </div>
     <div class="popup popup_type_add-place">
       <div class="popup__container popup__container_type_add-place">
         <form name="add-form" class="popup__form popup__form_type_add-place">
@@ -78,6 +92,15 @@
         <button type="button" name="close-button" class="popup__close-button popup__close-button_type_fullscreen-image"></button>
       </div>
     </div>
+    <div class="popup popup_type_confirm-delete">
+      <div class="popup__container">
+        <form name="confirm-delete" class="popup__form popup__form_type_confirm-delete">
+          <h2 class="popup__title popup__title_type_confirm-delete">Вы уверены?</h2>
+          <input type="submit" class="popup__submit-button popup__submit-button_type_confirm-delete" value="Да">
+        </form>
+        <button type="button" name="close-button" class="popup__close-button"></button>
+      </div>
+    </div>
   </section>
 
 
@@ -87,7 +110,10 @@
       <img src="#" alt="#" class="place__image">
       <div class="place__footer">
         <h2 class="place__title"></h2>
-        <button type="button" name="like-button" class="place__like-button"></button>
+        <div class="place__like-container">
+          <button type="button" name="like-button" class="place__like-button"></button>
+          <p class="place__like-count"></p>
+        </div>
       </div>
       <button type="button" name="trash-button" class="place__trash-button"></button>
     </li>
