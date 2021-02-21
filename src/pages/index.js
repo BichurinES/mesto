@@ -34,7 +34,7 @@ function changeInfo(evt) {
   evt.preventDefault();
   popupWithEditForm.showLoadingText();
   const newData = {
-    name: getSubmitButton().getValueFromName('name'),
+    name: popupWithEditForm.getValueFromName('name'),
     about: popupWithEditForm.getValueFromName('about')
   };
 
