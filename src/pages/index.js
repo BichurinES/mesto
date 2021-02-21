@@ -30,27 +30,21 @@ function prefillProfileForm() {
 }
 
 // Сохранение изменений данных профиля
-function changeInfo(evt) {
-  evt.preventDefault();
-  popupWithEditForm.showLoadingText();
+function changeInfo() {
   const newData = {
     name: popupWithEditForm.getValueFromName('name'),
     about: popupWithEditForm.getValueFromName('about')
   };
 
   api.chahgeProfile(newData, userInfo.setUserInfo.bind(userInfo));
-  popupWithEditForm.hideLoadingText();
   popupWithEditForm.close();
   prefillProfileForm();
 }
 
 // Сохранение изменения аватара
-function changeAvatar(evt) {
-  evt.preventDefault();
-  popupWithEditAvatar.showLoadingText();
+function changeAvatar() {
   api.changeAvatar({avatar: popupWithEditAvatar.getValueFromName('avatar')},
                     userInfo.setUserInfo.bind(userInfo));
-  popupWithEditAvatar.hideLoadingText();
   popupWithEditAvatar.close();
 }
 
@@ -88,22 +82,18 @@ function addPlace(item, isArray) {
 }
 
 // Отрисовка и добавления новой карточки из формы
-function addPlaceFromForm(evt) {
-  evt.preventDefault();
-  popupWithAddForm.showLoadingText();
+function addPlaceFromForm() {
   const item = {
     link: popupWithAddForm.getValueFromName('link'),
     name: popupWithAddForm.getValueFromName('title')
   };
 
   api.addNewCard(item, addPlace);
-  popupWithAddForm.hideLoadingText();
   popupWithAddForm.close();
 }
 
 // Удаление карточки
-function deleteCard(evt) {
-  evt.preventDefault();
+function deleteCard() {
   api.deleteCard(popupWithConfirmDelete.currentCard.getCardId())
   popupWithConfirmDelete.currentCard.getCardElement().remove();
   popupWithConfirmDelete.close();

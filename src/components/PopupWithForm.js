@@ -30,6 +30,10 @@ export default class PopupWithForm extends Popup {
     this._submitButton.value = this._defaultTextBtn;
   }
 
+  isHaveField() {
+    return this._form.querySelector('.popup__form-field') ? true : false;
+  }
+
   getValueFromName(inputName) {
     this._getInputValues();
     const findedInput = this._inputValues.find((inputObj) => {
@@ -40,7 +44,13 @@ export default class PopupWithForm extends Popup {
 
   setEventListener() {
     super.setEventListener();
-    this._form.addEventListener('submit', this._handleSubmitForm);
+    this._form.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+      if (this.isHaveField()) {
+        this.showLoadingText();
+      }
+      this._handleSubmitForm();
+    });
     if (this._openButton) {
       this._openButton.addEventListener('click', this.open.bind(this));
     }
@@ -55,7 +65,8 @@ export default class PopupWithForm extends Popup {
 
   close() {
     super.close();
-    if (this._form.querySelector('.popup__form-field')) {
+    if (this.isHaveField()) {
+      this.hideLoadingText()
       this._form.reset();
       this._submitButton.classList.add('popup__submit-button_type_disabled');
       this._submitButton.disabled = true;
