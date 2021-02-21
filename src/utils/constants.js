@@ -40,3 +40,4 @@ export const addFormSelector = '.popup__form_type_add-place';
 export const editFormSelector = '.popup__form_type_edit-profile';
 export const editAvatarSelector = '.popup__form_type_edit-avatar';
 export const loadingText = 'Сохранение...';
+export const startPromises = [];

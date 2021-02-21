@@ -19,7 +19,8 @@ import {
   addFormSelector,
   editFormSelector,
   editAvatarSelector,
-  loadingText
+  loadingText,
+  startPromises
 } from '../utils/constants.js';
 
 // Предзаполнение полей формы изменения профиля
@@ -36,16 +37,24 @@ function changeInfo() {
     about: popupWithEditForm.getValueFromName('about')
   };
 
-  api.chahgeProfile(newData, userInfo.setUserInfo.bind(userInfo));
-  popupWithEditForm.close();
-  prefillProfileForm();
+  api.chahgeProfile(newData, function(data) {
+    userInfo.setUserInfo(data);
+    popupWithEditForm.close();
+    prefillProfileForm();
+  })
+    .catch((err) => popupWithEditForm.showErrorMsg(err));
 }
 
 // Сохранение изменения аватара
 function changeAvatar() {
-  api.changeAvatar({avatar: popupWithEditAvatar.getValueFromName('avatar')},
-                    userInfo.setUserInfo.bind(userInfo));
-  popupWithEditAvatar.close();
+  api.changeAvatar({
+    avatar: popupWithEditAvatar.getValueFromName('avatar')
+  },
+  function(data) {
+    userInfo.setUserInfo(data);
+    popupWithEditAvatar.close();
+  })
+    .catch((err) => popupWithEditAvatar.showErrorMsg(err));
 }
 
 // Обработчик клиека по карте
@@ -62,9 +71,11 @@ function handleTrashClick() {
 // Обратботчик лайка карточки
 function handleLikeBtn() {
   if (this.isMyLike()) {
-    api.dislikeCard(this.getCardId(), this.refreshLikes.bind(this));
+    api.dislikeCard(this.getCardId(), this.refreshLikes.bind(this))
+      .catch((err) => console.log(err));
   } else {
-    api.likeCard(this.getCardId(), this.refreshLikes.bind(this));
+    api.likeCard(this.getCardId(), this.refreshLikes.bind(this))
+      .catch((err) => console.log(err));
   }
 }
 
@@ -88,15 +99,21 @@ function addPlaceFromForm() {
     name: popupWithAddForm.getValueFromName('title')
   };
 
-  api.addNewCard(item, addPlace);
-  popupWithAddForm.close();
+  api.addNewCard(item, function(item, isArray) {
+    addPlace(item, isArray);
+    popupWithAddForm.close();
+  })
+    .catch((err) => popupWithAddForm.showErrorMsg(err));
 }
 
 // Удаление карточки
 function deleteCard() {
   api.deleteCard(popupWithConfirmDelete.currentCard.getCardId())
-  popupWithConfirmDelete.currentCard.getCardElement().remove();
-  popupWithConfirmDelete.close();
+    .then(() => {
+      popupWithConfirmDelete.currentCard.getCardElement().remove();
+      popupWithConfirmDelete.close();
+    })
+    .catch((err) => popupWithAddForm.showErrorMsg(err));
 }
 
 // Создание экземпляров классов
@@ -141,8 +158,14 @@ addFormValidator.enableValidation();
 editFormValidator.enableValidation();
 editAvatarValidator.enableValidation();
 
-// Обновление информации о профиле
-api.getProfile(userInfo.setUserInfo.bind(userInfo));
+// Добавляем стартовые промисы в соответствующий массив
+startPromises.push(api.getProfile(userInfo.setUserInfo.bind(userInfo)))
+startPromises.push(api.getInitialCards(places.renderItems.bind(places)))
 
-// Загрузка карточек пользователей
-api.getInitialCards(places.renderItems.bind(places));
+// Отрисовка карточек после получения данных с обоих стартовых запросов
+Promise.all(startPromises)
+  .then((resArr) => {
+    userInfo.setUserInfo(resArr[0]);
+    places.renderItems(resArr[1]);
+  })
+  .catch((err) => console.log(err));

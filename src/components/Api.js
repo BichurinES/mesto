@@ -15,21 +15,24 @@ export default class Api {
 
         return Promise.reject(`Ошибка: ${res.status}`);
       })
-      .catch((err) => console.log(err));
   }
 
-  getProfile(setInfo) {
-    this._createRequest({
+  getProfile() {
+    return this._createRequest({
       url: this._profileUrl,
       headersObj: this._headers,
       method: 'GET'})
-      .then((data) => {
-        setInfo(data);
-      });
+  }
+
+  getInitialCards() {
+    return this._createRequest({
+      url: this._cardsUrl,
+      headersObj: this._headers,
+      method: 'GET'})
   }
 
   chahgeProfile(newData, setInfo) {
-    this._createRequest({
+    return this._createRequest({
       url: this._profileUrl,
       headersObj: this._headers,
       method: 'PATCH',
@@ -41,7 +44,7 @@ export default class Api {
   }
 
   changeAvatar(avatar, setInfo) {
-    this._createRequest({
+    return this._createRequest({
       url: `${this._profileUrl}/avatar`,
       headersObj: this._headers,
       method: 'PATCH',
@@ -52,18 +55,8 @@ export default class Api {
       });
   }
 
-  getInitialCards(addCards) {
-    this._createRequest({
-      url: this._cardsUrl,
-      headersObj: this._headers,
-      method: 'GET'})
-      .then((cards) => {
-        addCards(cards);
-      });
-  }
-
   addNewCard(cardData, addCard) {
-    this._createRequest({
+    return this._createRequest({
       url: this._cardsUrl,
       headersObj: this._headers,
       method: 'POST',
@@ -75,7 +68,7 @@ export default class Api {
   }
 
   deleteCard(idCard) {
-    this._createRequest({
+    return this._createRequest({
       url: `${this._cardsUrl}/${idCard}`,
       headersObj: this._headers,
       method: 'DELETE'
@@ -83,7 +76,7 @@ export default class Api {
   }
 
   likeCard(idCard, refreshLikes) {
-    this._createRequest({
+    return this._createRequest({
       url: `${this._cardsUrl}/likes/${idCard}`,
       headersObj: this._headers,
       method: 'PUT'
@@ -94,7 +87,7 @@ export default class Api {
   }
 
   dislikeCard(idCard, refreshLikes) {
-    this._createRequest({
+    return this._createRequest({
       url: `${this._cardsUrl}/likes/${idCard}`,
       headersObj: this._headers,
       method: 'DELETE'

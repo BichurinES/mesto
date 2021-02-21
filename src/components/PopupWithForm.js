@@ -30,6 +30,10 @@ export default class PopupWithForm extends Popup {
     this._submitButton.value = this._defaultTextBtn;
   }
 
+  showErrorMsg(text) {
+    this._submitButton.value = text;
+  }
+
   isHaveField() {
     return this._form.querySelector('.popup__form-field') ? true : false;
   }
