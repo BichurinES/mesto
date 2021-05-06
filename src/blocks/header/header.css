@@ -1,5 +1,17 @@
 .header {
+  box-sizing: border-box;
+  padding-top: 28px;
+  padding-left: 27px;
+  padding-bottom: 31.6px;
   max-width: 880px;
   min-height: 56px;
   border-bottom: 1px solid rgba(84, 84, 84, .7);
+}
+
+@media screen and (min-width: 934px) {
+  .header {
+    padding-top: 45px;
+    padding-left: 0;
+    padding-bottom: 41px;
+  }
 }

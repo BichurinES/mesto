@@ -2,8 +2,6 @@
   display: block;
   width: 103.74px;
   height: 24.4px;
-  margin-left: 27px;
-  margin-bottom: 31.6px;
   background-image: url('../../../images/header__logo.svg');
   background-size: contain;
   background-repeat: no-repeat;
@@ -14,8 +12,6 @@
   .header__logo {
     width: 142px;
     height: 33px;
-    margin-left: 0;
-    margin-bottom: 41px;
   }
 }
 

@@ -6,32 +6,34 @@
   <title>Mesto Russia</title>
 </head>
 <body class="page">
-  <header class="header page__header">
-    <a href="#" class="header__logo" target="_self"></a>
-  </header>
+<div class="page__content">
+    <header class="header page__header">
+      <a href="#" class="header__logo" target="_self"></a>
+    </header>
 
-  <main>
-    <section class="profile page__profile">
-      <button class="profile__avatar"></button>
-      <div class="profile__info">
-        <div class="profile__title-wrapper">
-          <h1 class="profile__title">Жак-Ив Кусто</h1>
-          <button type="button" name="edit-button" class="profile__edit-button"></button>
+    <main>
+      <section class="profile page__profile">
+        <button class="profile__avatar"></button>
+        <div class="profile__info">
+          <div class="profile__title-wrapper">
+            <h1 class="profile__title">Жак-Ив Кусто</h1>
+            <button type="button" name="edit-button" class="profile__edit-button"></button>
+          </div>
+          <p class="profile__subtitle">Исследователь океана</p>
         </div>
-        <p class="profile__subtitle">Исследователь океана</p>
-      </div>
-      <button type="button" name="add-button" class="profile__add-button"></button>
-    </section>
+        <button type="button" name="add-button" class="profile__add-button"></button>
+      </section>
 
-    <section class="places page__places">
-      <ul class="places__list">
-      </ul>
-    </section>
-  </main>
+      <section class="places page__places">
+        <ul class="places__list">
+        </ul>
+      </section>
+    </main>
 
-  <footer class="footer page__footer">
-    <p class="footer__copyright">&copy; 2020. Егор Бичурин</p>
-  </footer>
+    <footer class="footer page__footer">
+      <p class="footer__copyright">&copy; 2020. Егор Бичурин</p>
+    </footer>
+
 
   <!-- Popups -->
   <section class="popups">
@@ -102,7 +104,7 @@
       </div>
     </div>
   </section>
-
+</div>
 
   <!-- Шаблон для новых мест -->
   <template id="place-template">
